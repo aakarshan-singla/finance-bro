@@ -1,7 +1,8 @@
 """Configuration settings for the financial analysis agent."""
 
-from dataclasses import dataclass
-from typing import List
+from dataclasses import dataclass, field
+from typing import List, Optional, Dict, Any
+from datetime import datetime
 
 @dataclass
 class TradingConfig:
@@ -37,3 +38,16 @@ class TradingConfig:
     
     # Scoring weights
     rsi_weight: float = 0.25
+
+
+@dataclass
+class AnalysisResult:
+    """Result of financial analysis."""
+    symbol: str
+    timestamp: datetime
+    signal: str  # 'BUY', 'SELL', 'HOLD'
+    confidence: float
+    entry_price: Optional[float] = None
+    stop_loss: Optional[float] = None
+    take_profit: Optional[float] = None
+    analysis_data: Optional[Dict[str, Any]] = field(default_factory=dict)
